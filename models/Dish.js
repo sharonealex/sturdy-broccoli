@@ -1,5 +1,5 @@
-const { Model, DataTypes } = require("sequelize");
-const sequelize = require("../config/connection");
+const { DataTypes, Model } = require("sequelize");
+const sequelize = require("../config/connection")
 
 class Dish extends Model {}
 
@@ -19,8 +19,7 @@ Dish.init(
       type: DataTypes.STRING,
     },
     guest_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
+        type: DataTypes.STRING
     },
     has_nuts: {
       type: DataTypes.BOOLEAN,
@@ -28,9 +27,9 @@ Dish.init(
   },
   {
     sequelize,
-    modelName: "dish",
-    freezeTableName: true,
     underscored: true,
+    freezeTableName: true,
+    modelName: "dish",
   }
 );
 

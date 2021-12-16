@@ -1,26 +1,31 @@
 const express = require("express");
-const sequelize = require("./config/connection");
-const Dish = require("./models/Dish");
+const app = express();
 const exphbs = require("express-handlebars");
-const path = require("path")
+const path = require("path");
+const sequelize = require("./config/connection")
+const dish = require("./models/Dish");
+const router = require("./controllers/")
 
 
-const app = new express();
-const PORT = process.env.port || 3001;
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+app.use(express.static(path.join(__dirname,'public')));
+app.use(router)
 
-const hbs = exphbs.create({})
+
+const hbs = exphbs.create({});
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-app.use(express.static(path.join(__dirname, 'public')));
 
-sequelize.sync({force: true}).then(() => {
+const PORT = process.env.PORT || 3001;
+
+sequelize.sync({force: false}).then(() => {
     app.listen(PORT, ()=>{
-        console.log("server running on 3001")
+        console.log("server up and running on" + PORT)
     })
 }).catch((err) => {
     
 });
+
