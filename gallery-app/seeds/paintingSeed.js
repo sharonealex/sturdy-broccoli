@@ -1,4 +1,4 @@
-const { Painting } = require('../models');
+const  Painting  = require('../models/Painting');
 
 const paintingdata = [
   {
