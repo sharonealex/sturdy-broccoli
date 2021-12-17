@@ -9,13 +9,17 @@ router.get("/", async(req, res)=>{
                     model: Painting,
                     attributes: ['filename', 'description']
                 }
-            ]
+            ],
         });
-        const galleryData = dbGalleryData.map((gallery)=>gallery.get({plain: true}));
-        console.log(galleryData);
-        res.render('homepage', {galleryData})
-    }catch(e){
-        console.log(e);
+        const galleries = dbGalleryData.map((gallery)=>
+        gallery.get({plain: true})
+        );
+        
+        res.render('homepage', {
+            galleries
+        });
+    } catch (e) {
+        console.log(e)
         res.status(500).json(e);
     }
 });

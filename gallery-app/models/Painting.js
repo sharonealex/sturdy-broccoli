@@ -38,7 +38,8 @@ Painting.init({
     sequelize,
     freezeTableName: true,
     underscored: true,
-    timestamps: false
+    timestamps: false,
+    modelName: 'painting'
 });
 
 module.exports = Painting;

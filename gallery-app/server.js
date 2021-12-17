@@ -1,27 +1,24 @@
-const express = require("express");
-const sequelize = require("./config/connection");
-const path = require("path");
-const exphbs = require("express-handlebars");
+const path = require('path');
+const express = require('express');
+const exphbs = require('express-handlebars');
 
-const {Gallery, Paintings} = require("./models/");
-const routes = require("./controllers/homeRoutes")
-
+const routes = require('./controllers');
+const sequelize = require('./config/connection');
 
 const app = express();
+const PORT = process.env.PORT || 3001;
+
 const hbs = exphbs.create({});
 
-app.engine("handlebars", hbs.engine);
-app.set("view engine", "handlebars");
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-app.use(express.static(path.join(__dirname, "public")));
 
-const PORT = process.env.port || 3001;
-
-sequelize.sync({force: false}).then(()=>{
-app.listen(PORT, ()=>{
-console.log(`server running on ${PORT}`);
-})
-})
+sequelize.sync({ force: false }).then(() => {
+  app.listen(PORT, () => console.log('Now listening'));
+});
