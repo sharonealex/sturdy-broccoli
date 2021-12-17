@@ -12,8 +12,12 @@ router.get("/", async(req, res)=>{
             ]
         });
         const galleryData = dbGalleryData.map((gallery)=>gallery.get({plain: true}));
+        console.log(galleryData);
         res.render('homepage', {galleryData})
     }catch(e){
-
+        console.log(e);
+        res.status(500).json(e);
     }
-})
+});
+
+module.exports = router;

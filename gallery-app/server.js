@@ -11,12 +11,12 @@ const app = express();
 const hbs = exphbs.create({});
 
 app.engine("handlebars", hbs.engine);
-app.set("view engine", "handlbars");
+app.set("view engine", "handlebars");
 
 app.use(routes);
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(express.static(), path.join(__dirname, "public"));
+app.use(express.static(path.join(__dirname, "public")));
 
 const PORT = process.env.port || 3001;
 
