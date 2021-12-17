@@ -36,8 +36,8 @@ Model.init({
       },
 },{
     hooks: {
-        beforeCreate = (newUser)=>{
-             newUser.password = bcrypt.hash(newUser.password);
+        async beforeCreate (newUser){
+             newUser.password = await bcrypt.hash(newUser.password);
              return newUser;
         }
     },

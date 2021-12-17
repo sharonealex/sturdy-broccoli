@@ -18,19 +18,18 @@ router.get("/", async(req, res)=>{
         req.session.save(() => {
             // We set up a session variable to count the number of times we visit the homepage
             if (req.session.countVisit) {
-                console.log("here")
+             
               // If the 'countVisit' session variable already exists, increment it by 1
               req.session.countVisit++;
             } else {
-                console.log("here2")
+                
               // If the 'countVisit' session variable doesn't exist, set it to 1
               req.session.countVisit = 1;
             }
       
             res.render('homepage', {
               galleries,
-              // We send over the current 'countVisit' session variable to be rendered
-              countVisit: req.session.countVisit,
+              loggedIn: req.session.loggedIn,
             });
           });
     } catch (e) {
@@ -59,7 +58,8 @@ router.get("/gallery/:id", async(req, res)=>{
             ]
         });
         const gallery = dbGalleryData.get({plain: true});
-        res.render('gallery', {gallery})
+        res.render('gallery', {gallery, loggedIn: req.session.loggedIn,
+        })
     }catch(e){
 console.log(e)
     };
@@ -71,7 +71,7 @@ router.get('/painting/:id', async (req, res) => {
   
       const painting = dbPaintingData.get({ plain: true });
   
-      res.render('painting', { painting });
+      res.render('painting', { painting, loggedIn: req.session.loggedIn, });
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
